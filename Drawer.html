@@ -24,6 +24,7 @@ var framesPerSecond = 30;
 // mouse pos
 var mouseX;
 var mouseY;
+var radius = 10;
 
 
 window.onload = function() {
@@ -84,7 +85,7 @@ function doItAll() {
 }
 
 function updateDrawing() {
-	
+	 colorcircle(mouseX,mouseY,radius,'black');
 }
 
 function drawEverything() {
