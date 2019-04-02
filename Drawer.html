@@ -49,7 +49,7 @@ window.onload = function() {
 		});
     
  	//allows the program to recognize where to draw
- 	canvas.addEventListener('onmousedown', handleMouseClick);
+ 	canvas.addEventListener('mousedown', upadateDrawing);
   
 }
 /////////////////////////////////////////////////////////////
@@ -68,10 +68,6 @@ function calculateMousePos(evt) {
 		y:mouseY
 	}
 }
-function handleMouseClick() {
-    
-    
-}
 var space = []; 
 		onkeydown = onkeyup = function(key){
    		key = key || event; 
@@ -87,14 +83,15 @@ function doItAll() {
 	drawEverything();
 }
 
-function moveEverything() {
+function updateDrawing() {
 	
 }
 
 function drawEverything() {
-	
+	//draws side banner
 	colorRect(900,0,50,550,'gray');
 	
+	//draws color boxes 
 	colorRect(910,10,30,30,'black');
 	colorRect(910,50,30,30,'red');
 	colorRect(910,90,30,30,'green');
@@ -106,7 +103,8 @@ function drawEverything() {
 	colorRect(910,330,30,30,'lightgray');
 	colorRect(910,370,30,30,'brown');
 	
-	colorRect(904,430,42,25,'white');
+	//draws width box 
+	colorRect(902,430,46,25,'white');
 	colorText(905,450,"Width","16px sans-serif",'black');
 }
 
