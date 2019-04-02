@@ -11,18 +11,11 @@
   border-color: black;
   border-width: 2px;
 }
-h1 {
-	font-family: courier New;
-	color: black;
-	font-size: 50px;
-	margin: 0px;
-}
-
 	</style>
 	</head>
 	<body>
 		<div id="gamePart">
-      <h1>Drawer - By Ben Schellinger</h1>
+
 			<canvas id="gameCanvas" width="950" height="550"></canvas>
 		</div>
 		<script>
@@ -38,7 +31,10 @@ window.onload = function() {
 	//grabs canvas so i can start coding on it. (^_^)
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
-
+	
+	colorRect(0,0,canvas.width,canvas.height,'white');
+	//whites out the background
+	
 	//this start the movement of everything hence doItAll()
 	setInterval(doItAll ,1000/framesPerSecond);
  
@@ -71,24 +67,24 @@ function calculateMousePos(evt) {
 		x:mouseX,
 		y:mouseY
 	}
-
+}
 function handleMouseClick() {
     
     
-	}
 }
-////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////
-//make the program recognize the space bar being clicked.
 var space = []; 
 		onkeydown = onkeyup = function(key){
    		key = key || event; 
     	space[key.keyCode] = key.type == 'keydown';
    	}
+////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////
+//make the program recognize the space bar being clicked.
+
 
 function doItAll() {
-
+	drawEverything();
 }
 
 function moveEverything() {
@@ -97,14 +93,30 @@ function moveEverything() {
 
 function drawEverything() {
 	
+	colorRect(900,0,50,550,'gray');
+	
+	colorRect(910,10,30,30,'black');
+	colorRect(910,50,30,30,'red');
+	colorRect(910,90,30,30,'green');
+	colorRect(910,130,30,30,'blue');
+	colorRect(910,170,30,30,'yellow');
+	colorRect(910,210,30,30,'cyan');
+	colorRect(910,250,30,30,'magenta');
+	colorRect(910,290,30,30,'pink');
+	colorRect(910,330,30,30,'lightgray');
+	colorRect(910,370,30,30,'brown');
+	
+	colorRect(904,430,42,25,'white');
+	colorText(905,450,"Width","16px sans-serif",'black');
 }
 
 //
 // the following are a few shortening functions - helper functions 
 //
 function colorText(X, Y, text, font ,color) {
-  canvasContext.fillStyle = color ;
-	canvasContext.font = "18px sans-serif"
+//makes text 
+  	canvasContext.fillStyle = color ;
+	canvasContext.font = font;
 	canvasContext.fillText( text , X, Y);
 }
 function colorCircle(centerX, centerY, radius, drawColor) {
