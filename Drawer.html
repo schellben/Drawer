@@ -1,0 +1,124 @@
+<html>
+	<head>
+	<title>Drawer</title>
+	<style>
+  
+#gamePart {
+  text-align: center;
+}
+#gameCanvas {
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+}
+h1 {
+	font-family: courier New;
+	color: black;
+	font-size: 50px;
+	margin: 0px;
+}
+
+	</style>
+	</head>
+	<body>
+		<div id="gamePart">
+      <h1>Drawer - By Ben Schellinger</h1>
+			<canvas id="gameCanvas" width="950" height="550"></canvas>
+		</div>
+		<script>
+    
+var framesPerSecond = 30;
+// mouse pos
+var mouseX;
+var mouseY;
+
+
+window.onload = function() {
+	//this starts everything after the window loads
+	//grabs canvas so i can start coding on it. (^_^)
+	canvas = document.getElementById('gameCanvas');
+	canvasContext = canvas.getContext('2d');
+
+	//this start the movement of everything hence doItAll()
+	setInterval(doItAll ,1000/framesPerSecond);
+ 
+ // sets the mouse position
+ 
+  canvas.addEventListener('mousemove', 
+		function(evt) {
+			var mousePos = calculateMousePos(evt);
+			mouseX = mousePos.x;
+			mouseY = mousePos.y;
+			
+		});
+    
+ 	//allows the program to recognize where to draw
+ 	canvas.addEventListener('onmousedown', handleMouseClick);
+  
+}
+/////////////////////////////////////////////////////////////
+////////////////////Mouse Positions//////////////////////////
+/////////////////////////////////////////////////////////////
+function calculateMousePos(evt) {
+
+	// lets the mouse be set to the right position
+  
+	var rect = canvas.getBoundingClientRect();
+	var root = document.documentElement;
+	var mouseX = evt.clientX - rect.left - root.scrollLeft;
+	var mouseY = evt.clientY - rect.top - root.scrollTop;
+	return {
+		x:mouseX,
+		y:mouseY
+	}
+
+function handleMouseClick() {
+    
+    
+	}
+}
+////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////
+//make the program recognize the space bar being clicked.
+var space = []; 
+		onkeydown = onkeyup = function(key){
+   		key = key || event; 
+    	space[key.keyCode] = key.type == 'keydown';
+   	}
+
+function doItAll() {
+
+}
+
+function moveEverything() {
+	
+}
+
+function drawEverything() {
+	
+}
+
+//
+// the following are a few shortening functions - helper functions 
+//
+function colorText(X, Y, text, font ,color) {
+  canvasContext.fillStyle = color ;
+	canvasContext.font = "18px sans-serif"
+	canvasContext.fillText( text , X, Y);
+}
+function colorCircle(centerX, centerY, radius, drawColor) {
+//draws a full circle with a few less inputs 
+	canvasContext.fillStyle = drawColor;
+	canvasContext.beginPath();
+	canvasContext.arc(centerX, centerY, radius, 0, Math.PI*2, true);
+	canvasContext.fill();
+}
+function colorRect(leftX, topY, width, height, drawColor) {
+//draws a rectangle.
+	canvasContext.fillStyle = drawColor ;
+	canvasContext.fillRect(leftX, topY, width, height,);
+}
+		</script>
+	</body>
+</html>
