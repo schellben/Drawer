@@ -19,12 +19,20 @@
 			<canvas id="gameCanvas" width="950" height="550"></canvas>
 		</div>
 		<script>
-    
-var framesPerSecond = 30;
+   
+//////////////////////////////////
+///////////   VARS  //////////////
+//////////////////////////////////
+var framesPerSecond = 1500;
 // mouse pos
 var mouseX;
 var mouseY;
+//
 var radius = 10;
+var color = 'black';
+//
+var drawing = false;
+
 
 
 window.onload = function() {
@@ -50,14 +58,22 @@ window.onload = function() {
 		});
     
  	//allows the program to recognize where to draw
- 	canvas.addEventListener('mousedown', upadateDrawing);
+ 	canvas.addEventListener('mousedown', turnDrawOn);
+ 	canvas.addEventListener('mouseup', turnDrawOff);
+ 	document.addEventListener('keydown', 
+ 		function(evt) {
+ 			if (evt.keyCode == 32) {
+ 				radius = prompt("Please enter your name", radius);
+ 				//console.log("It Sent");
+ 			}
+ 			
+ 		});
   
 }
 /////////////////////////////////////////////////////////////
 ////////////////////Mouse Positions//////////////////////////
 /////////////////////////////////////////////////////////////
 function calculateMousePos(evt) {
-
 	// lets the mouse be set to the right position
   
 	var rect = canvas.getBoundingClientRect();
@@ -75,43 +91,104 @@ var space = [];
     	space[key.keyCode] = key.type == 'keydown';
    	}
 ////////////////////////////////////////////////////////////
-
 ////////////////////////////////////////////////////////////
 //make the program recognize the space bar being clicked.
-
-
 function doItAll() {
 	drawEverything();
+	if (drawing) {
+		mousemove = function(evt){
+			var mousePos = calculateMousePos(evt);
+			mouseX = mousePos.x;
+			mouseY = mousePos.y;
+		}
+		drawOnCursor();
+	}
 }
 
-function updateDrawing() {
-	 colorcircle(mouseX,mouseY,radius,'black');
+
+//// draw/ Select color
+
+function drawOnCursor() {
+
+	colorCircle(mouseX,mouseY,radius,color);
+}
+function checkForColorChange() {
+	if (checkIfClicked(10,10)) {
+		color = 'black';
+	}else if (checkIfClicked(10,50)) {
+		color = 'red';
+	}else if (checkIfClicked(10,90)) {
+		color = 'green';
+	}else if (checkIfClicked(10,130)) {
+		color = 'blue';
+	}else if (checkIfClicked(10,170)) {
+		color = 'yellow';
+	}else if (checkIfClicked(10,210)) {
+		color = 'cyan';
+	}else if (checkIfClicked(10,250)) {
+		color = 'magenta';
+	}else if (checkIfClicked(10,290)) {
+		color = 'pink';
+	}else if (checkIfClicked(10,330)) {
+		color = 'lightgray';
+	}else if (checkIfClicked(10,370)) {
+		color = 'brown';
+	}else if (checkIfClicked(10,410)) {
+		color = 'white';
+	}
 }
 
+
+/// set draw mode 
+
+function turnDrawOn() {
+	if (mouseX >= 0 && mouseX <= 50){
+		checkForColorChange();
+	}else {
+		drawing = true;
+	}
+}
+function turnDrawOff() {
+	drawing = false;
+}
+
+
+//// main draw colors
 function drawEverything() {
 	//draws side banner
-	colorRect(900,0,50,550,'gray');
+	colorRect(0,0,50,550,'gray');
 	
 	//draws color boxes 
-	colorRect(910,10,30,30,'black');
-	colorRect(910,50,30,30,'red');
-	colorRect(910,90,30,30,'green');
-	colorRect(910,130,30,30,'blue');
-	colorRect(910,170,30,30,'yellow');
-	colorRect(910,210,30,30,'cyan');
-	colorRect(910,250,30,30,'magenta');
-	colorRect(910,290,30,30,'pink');
-	colorRect(910,330,30,30,'lightgray');
-	colorRect(910,370,30,30,'brown');
+	colorRect(10,10,30,30,'black');
+	colorRect(10,50,30,30,'red');
+	colorRect(10,90,30,30,'green');
+	colorRect(10,130,30,30,'blue');
+	colorRect(10,170,30,30,'yellow');
+	colorRect(10,210,30,30,'cyan');
+	colorRect(10,250,30,30,'magenta');
+	colorRect(10,290,30,30,'pink');
+	colorRect(10,330,30,30,'lightgray');
+	colorRect(10,370,30,30,'brown');
+	colorRect(10,410,30,30,'white');
 	
-	//draws width box 
-	colorRect(902,430,46,25,'white');
-	colorText(905,450,"Width","16px sans-serif",'black');
+	
+	colorText(2,475,"Width","19px bold sans-serif",'black');
 }
-
 //
 // the following are a few shortening functions - helper functions 
 //
+
+function checkIfClicked(X,Y) {
+	if (mouseX >= X && mouseX <= (X+30) && mouseY >= Y && mouseY <= (Y+30)){
+		return true;
+	}else {
+		return false;
+	}
+}
+
+
+
+//////////////Draw Short Functions
 function colorText(X, Y, text, font ,color) {
 //makes text 
   	canvasContext.fillStyle = color ;
