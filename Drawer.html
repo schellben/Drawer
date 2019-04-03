@@ -22,7 +22,7 @@
 				<p>Thickness of the line:</p>
 				<form>
 					<input type="number" name="radius" id="widthNum">
-					<input type="button" value="Change" onclick="setWidthNum()" allowredirect="false">
+					<input type="button" value="Click Here To Change Width" onclick="setWidthNum()" >
 				</form>
 			</div>
 		</div>
@@ -70,6 +70,9 @@ window.onload = function() {
  	canvas.addEventListener('mouseup', turnDrawOff);
  	document.addEventListener('keydown', 
  		function(evt) {
+			if (evt.keyCode == 13) {
+				return false;
+			}
  			if (evt.keyCode == 32) {
  				//radius = prompt("Please enter the size that you would like", radius);
  				//console.log("It Sent");
