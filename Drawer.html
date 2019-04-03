@@ -17,13 +17,19 @@
 		<div id="gamePart">
 
 			<canvas id="gameCanvas" width="950" height="550"></canvas>
+			
+			<p>Thickness of the line:</p>
+			<form>
+				<input type="number" name="radius" id="widthNum">
+				<input type="submit" value="Submit" onclick="setWidthNum()">
+			</form>
 		</div>
 		<script>
    
 //////////////////////////////////
 ///////////   VARS  //////////////
 //////////////////////////////////
-var framesPerSecond = 1500;
+var framesPerSecond = 10000;
 // mouse pos
 var mouseX;
 var mouseY;
@@ -63,7 +69,7 @@ window.onload = function() {
  	document.addEventListener('keydown', 
  		function(evt) {
  			if (evt.keyCode == 32) {
- 				radius = prompt("Please enter your name", radius);
+ 				radius = prompt("Please enter the size that you would like", radius);
  				//console.log("It Sent");
  			}
  			
@@ -85,14 +91,10 @@ function calculateMousePos(evt) {
 		y:mouseY
 	}
 }
-var space = []; 
-		onkeydown = onkeyup = function(key){
-   		key = key || event; 
-    	space[key.keyCode] = key.type == 'keydown';
-   	}
+
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
-//make the program recognize the space bar being clicked.
+
 function doItAll() {
 	drawEverything();
 	if (drawing) {
@@ -112,6 +114,12 @@ function drawOnCursor() {
 
 	colorCircle(mouseX,mouseY,radius,color);
 }
+function setWidthNum(){
+	radius = document.getElementById('widthNum').value;
+	e.preventDefault();
+}
+			
+
 function checkForColorChange() {
 	if (checkIfClicked(10,10)) {
 		color = 'black';
@@ -170,9 +178,6 @@ function drawEverything() {
 	colorRect(10,330,30,30,'lightgray');
 	colorRect(10,370,30,30,'brown');
 	colorRect(10,410,30,30,'white');
-	
-	
-	colorText(2,475,"Width","19px bold sans-serif",'black');
 }
 //
 // the following are a few shortening functions - helper functions 
