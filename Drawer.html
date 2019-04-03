@@ -22,7 +22,7 @@
 				<p>Thickness of the line:</p>
 				<form>
 					<input type="number" name="radius" id="widthNum">
-					<input type="submit" value="Submit" onclick="setWidthNum()">
+					<input type="button" value="Change" onclick="setWidthNum()" allowredirect="false">
 				</form>
 			</div>
 		</div>
@@ -40,7 +40,6 @@ var radius = 10;
 var color = 'black';
 //
 var drawing = false;
-
 ////////////////////////////////////////////////////////
 ////////////////Starting Function //////////////////////
 ////////////////////////////////////////////////////////
@@ -94,11 +93,9 @@ function calculateMousePos(evt) {
 		y:mouseY
 	}
 }
-
 ////////////////////////////////////////////////////////////
 ////////////////// Main Functions //////////////////////////
 ////////////////////////////////////////////////////////////
-
 function doItAll() {
 	drawEverything();   // draws sidebar 
 	
@@ -112,7 +109,6 @@ function doItAll() {
 		drawOnCursor();
 	}
 }
-
 function drawOnCursor() {
 //function for drawing on the mouse pos
 	colorCircle(mouseX,mouseY,radius,color);
@@ -175,10 +171,10 @@ function checkForColorChange() {
 			
 /////////////////////////////////////////////////////////////////////////////
 			
-
 function setWidthNum(){
 	//get the value from the form element to change width. 
 	radius = document.getElementById('widthNum').value;
+	rturn false;
 }
 			
 function turnDrawOn() {
@@ -196,7 +192,6 @@ function turnDrawOff() {
 	// mouse is no longer clicked turn draw mode off
 	drawing = false;
 }
-
 function checkIfClicked(X,Y) {
 	// square collider designed for the color swap function. Size 30,30
 	if (mouseX >= X && mouseX <= (X+30) && mouseY >= Y && mouseY <= (Y+30)){
@@ -211,7 +206,6 @@ function checkIfClicked(X,Y) {
 			//Helper functions starting. 
 			
 /////////////////////////////////////////////////////////////////////////////
-
 function colorText(X, Y, text, font ,color) {
 //makes text 
   	canvasContext.fillStyle = color ;
