@@ -18,11 +18,13 @@
 
 			<canvas id="gameCanvas" width="950" height="550"></canvas>
 			
-			<p>Thickness of the line:</p>
-			<form>
-				<input type="number" name="radius" id="widthNum">
-				<input type="submit" value="Submit" onclick="setWidthNum()">
-			</form>
+			<div>
+				<p>Thickness of the line:</p>
+				<form>
+					<input type="number" name="radius" id="widthNum">
+					<input type="submit" value="Submit" onclick="setWidthNum()">
+				</form>
+			</div>
 		</div>
 		<script>
    
@@ -39,28 +41,29 @@ var color = 'black';
 //
 var drawing = false;
 
-
-
+////////////////////////////////////////////////////////
+////////////////Starting Function //////////////////////
+////////////////////////////////////////////////////////
 window.onload = function() {
 	//this starts everything after the window loads
-	//grabs canvas so i can start coding on it. (^_^)
+	
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
 	
 	colorRect(0,0,canvas.width,canvas.height,'white');
 	//whites out the background
+	//on start
 	
 	//this start the movement of everything hence doItAll()
 	setInterval(doItAll ,1000/framesPerSecond);
  
- // sets the mouse position
- 
-  canvas.addEventListener('mousemove', 
+ 	// sets the mouse position
+	//on every time it moves 
+	canvas.addEventListener('mousemove', 
 		function(evt) {
 			var mousePos = calculateMousePos(evt);
 			mouseX = mousePos.x;
 			mouseY = mousePos.y;
-			
 		});
     
  	//allows the program to recognize where to draw
@@ -69,18 +72,18 @@ window.onload = function() {
  	document.addEventListener('keydown', 
  		function(evt) {
  			if (evt.keyCode == 32) {
- 				radius = prompt("Please enter the size that you would like", radius);
+ 				//radius = prompt("Please enter the size that you would like", radius);
  				//console.log("It Sent");
  			}
- 			
  		});
-  
+	////End of Starting function 
 }
 /////////////////////////////////////////////////////////////
 ////////////////////Mouse Positions//////////////////////////
 /////////////////////////////////////////////////////////////
 function calculateMousePos(evt) {
 	// lets the mouse be set to the right position
+	// called on everytime that the mouse is moved and everytime drawing starts 
   
 	var rect = canvas.getBoundingClientRect();
 	var root = document.documentElement;
@@ -93,11 +96,14 @@ function calculateMousePos(evt) {
 }
 
 ////////////////////////////////////////////////////////////
+////////////////// Main Functions //////////////////////////
 ////////////////////////////////////////////////////////////
 
 function doItAll() {
-	drawEverything();
+	drawEverything();   // draws sidebar 
+	
 	if (drawing) {
+		//sets mouse pos and then draws at that position. 
 		mousemove = function(evt){
 			var mousePos = calculateMousePos(evt);
 			mouseX = mousePos.x;
@@ -107,20 +113,37 @@ function doItAll() {
 	}
 }
 
-
-//// draw/ Select color
-
 function drawOnCursor() {
-
+//function for drawing on the mouse pos
 	colorCircle(mouseX,mouseY,radius,color);
 }
-function setWidthNum(){
-	radius = document.getElementById('widthNum').value;
-	e.preventDefault();
+			
+			//////////////SIDE BAR/////////////////////
+//// main draw colors
+function drawEverything() {
+	//draws side banner
+	colorRect(0,0,50,550,'gray');
+	
+	//draws color boxes 
+	colorRect(10,10,30,30,'black');
+	colorRect(10,50,30,30,'red');
+	colorRect(10,90,30,30,'green');
+	colorRect(10,130,30,30,'blue');
+	colorRect(10,170,30,30,'yellow');
+	colorRect(10,210,30,30,'cyan');
+	colorRect(10,250,30,30,'magenta');
+	colorRect(10,290,30,30,'pink');
+	colorRect(10,330,30,30,'lightgray');
+	colorRect(10,370,30,30,'brown');
+	colorRect(10,410,30,30,'white');
+	//colors are as follows :: ::  black,red,green,blue,yellow,cyan,magenta,pink,lightgray,brown,white
 }
 			
-
+			
 function checkForColorChange() {
+	
+	//checks to see if the user clicked a button to swich colors. 
+	
 	if (checkIfClicked(10,10)) {
 		color = 'black';
 	}else if (checkIfClicked(10,50)) {
@@ -145,55 +168,50 @@ function checkForColorChange() {
 		color = 'white';
 	}
 }
+/////////////////////////////////////////////////////////////////////////////
+			
+			//Main functions Done
+			//Smaller Single purpose functions
+			
+/////////////////////////////////////////////////////////////////////////////
+			
 
-
-/// set draw mode 
-
+function setWidthNum(){
+	//get the value from the form element to change width. 
+	radius = document.getElementById('widthNum').value;
+}
+			
 function turnDrawOn() {
+	//turns the drawing mode on if the mouse is not in the sidebar
 	if (mouseX >= 0 && mouseX <= 50){
+		//mouse is in the sidebar and checks for color swap
 		checkForColorChange();
 	}else {
 		drawing = true;
+		//turns draw mode on. 
 	}
 }
+			
 function turnDrawOff() {
+	// mouse is no longer clicked turn draw mode off
 	drawing = false;
 }
 
-
-//// main draw colors
-function drawEverything() {
-	//draws side banner
-	colorRect(0,0,50,550,'gray');
-	
-	//draws color boxes 
-	colorRect(10,10,30,30,'black');
-	colorRect(10,50,30,30,'red');
-	colorRect(10,90,30,30,'green');
-	colorRect(10,130,30,30,'blue');
-	colorRect(10,170,30,30,'yellow');
-	colorRect(10,210,30,30,'cyan');
-	colorRect(10,250,30,30,'magenta');
-	colorRect(10,290,30,30,'pink');
-	colorRect(10,330,30,30,'lightgray');
-	colorRect(10,370,30,30,'brown');
-	colorRect(10,410,30,30,'white');
-}
-//
-// the following are a few shortening functions - helper functions 
-//
-
 function checkIfClicked(X,Y) {
+	// square collider designed for the color swap function. Size 30,30
 	if (mouseX >= X && mouseX <= (X+30) && mouseY >= Y && mouseY <= (Y+30)){
 		return true;
 	}else {
 		return false;
 	}
 }
+/////////////////////////////////////////////////////////////////////////////
+			
+			//Smaller Single purpose functions done
+			//Helper functions starting. 
+			
+/////////////////////////////////////////////////////////////////////////////
 
-
-
-//////////////Draw Short Functions
 function colorText(X, Y, text, font ,color) {
 //makes text 
   	canvasContext.fillStyle = color ;
