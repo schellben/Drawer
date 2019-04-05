@@ -21,7 +21,7 @@
 			<div>
 				<p>Thickness of the line:</p>
 				<form>
-					<input type="number" name="radius" id="widthNum">
+					<input type="number" name="radius" id="widthNum" min="0" max="1000">
 					<input type="button" value="Click Here To Change Width" onclick="setWidthNum()" >
 				</form>
 			</div>
@@ -135,7 +135,9 @@ function drawEverything() {
 	colorRect(10,330,30,30,'lightgray');
 	colorRect(10,370,30,30,'brown');
 	colorRect(10,410,30,30,'white');
-	//colors are as follows :: ::  black,red,green,blue,yellow,cyan,magenta,pink,lightgray,brown,white
+	colorRect(10,450,30,30,'orange');
+	
+	//colors are as follows :: ::  black,red,green,blue,yellow,cyan,magenta,pink,lightgray,brown,white, orange
 }
 			
 			
@@ -165,6 +167,8 @@ function checkForColorChange() {
 		color = 'brown';
 	}else if (checkIfClicked(10,410)) {
 		color = 'white';
+	}else if (checkIfClicked(10,450)) {
+		color = 'orange';
 	}
 }
 /////////////////////////////////////////////////////////////////////////////
@@ -177,6 +181,11 @@ function checkForColorChange() {
 function setWidthNum(){
 	//get the value from the form element to change width. 
 	radius = document.getElementById('widthNum').value;
+	if (radius > 1000) {
+		radius = 1000;
+	}if (radius < 0) {
+		radius = 1; 
+	}
 	return false;
 }
 			
